@@ -1,24 +1,6 @@
 # ConFusion
 
-Assignment #1 Branch
-This assignment consists of 3 tasks:
-
-Task #1: Add a new dishdetail component to the application and include it in menu component's template
-
-- A new dishdetail component has been added to your Angular application
-- Included the dishdetail into your menu component's template
-- Updated the template of the dishdetail component
-
-Task #2: Adding a card component to the dishdetail template and display the details of the dish
-
-- Added a new dish variable in your dishdetail.component.ts file and initialized it to the JavaScript object given above.
-- Used the Angular material card component to display the details of the dish.
-- Used the Angular uppercase pipe to turn the dish's name into all uppercase letters in the card title.
-
-Task #3: Use the comments (from task #2) 
-
-- Included a list of comments about the dish into the dishdetail template using the Angular material list component.
-- Display the date of the comment using the Angular date pipe.
+Week #2 Work [Coursera Course: Front-End JavaScript Frameworks: Angular]
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
 
