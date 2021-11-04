@@ -2,6 +2,25 @@
 
 Week #2 Work [Coursera Course: Front-End JavaScript Frameworks: Angular]
 
+Assignment #2
+
+Task 1:
+•	A new Leader class has been added to the application.
+•	A new LEADERS constant has been added to the application.
+•	A new leader service has been added to the application and it makes the details of all leaders, a specific leader and a featured leader available.
+•	The AppModule has been updated to include the leader service.
+
+Task 2:
+•	Updated about.component.ts to fetch the leaders' details and make them available to the template.
+•	Updated about.component.html to show the details of the corporate leaders.
+•	Updated routes to include a new path to the AboutComponent.
+•	Updated the links in header and footer to enable navigation to the About Us view.
+
+Task 3:
+•	Updated home.component.ts to fetch and make the details of the featured leader available to the template.
+•	Updated home.component.html to show the details of the featured leader using the Angular Material card component.
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
 
 ## Development server
