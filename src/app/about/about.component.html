@@ -58,10 +58,17 @@
     <div>
       <mat-list fxFlex>
         <mat-list-item *ngFor="let leader of leaders" >   
-          <img matListAvatar src={{leader.image}} alt={{leader.name}} class="bit-right-padding">
-          <span matLine><strong>{{leader.name}} {{leader.abbr}}</strong></span>
-          <span matLine>  {{leader.designation}}</span>
-          <span matLine>  {{leader.description}}</span>
+          <!-- img element should use new style.scss rule. For assignment review purposes - replaced. -->
+          <img matListAvatar src={{leader.image}} alt={{leader.name}}>
+          <p mat-line>
+            <span> {{leader.name}} {{leader.abbr}}</span>
+        </p>
+        <p mat-line>
+            <span> {{leader.designation}}</span>
+        </p>
+        <p mat-line>
+            <span> {{leader.description}}</span>
+        </p>
         </mat-list-item>
       </mat-list>
   </div>
