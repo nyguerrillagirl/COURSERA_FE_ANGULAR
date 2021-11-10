@@ -55,7 +55,7 @@
 
   <div fxFlex>
     <h2>Corporate Leadership</h2>
-    <div>
+    <div *ngIf="leaders">
       <mat-list fxFlex>
         <mat-list-item *ngFor="let leader of leaders" >   
           <!-- img element should use new style.scss rule. For assignment review purposes - replaced. -->
@@ -71,6 +71,9 @@
         </p>
         </mat-list-item>
       </mat-list>
+  </div>
+  <div fxFlex [hidden]="leaders">
+      <mat-spinner></mat-spinner><h4>Loading...Please wait</h4>
   </div>
   </div>
 </div>
