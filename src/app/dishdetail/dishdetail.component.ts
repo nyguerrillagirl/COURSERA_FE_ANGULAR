@@ -1,10 +1,12 @@
 import { Component, OnInit} from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 import { switchMap } from 'rxjs/operators';
+
+import { Comment } from '../shared/comment';
 
 @Component({
   selector: 'app-dishdetail',
@@ -13,15 +15,19 @@ import { switchMap } from 'rxjs/operators';
 })
 export class DishdetailComponent implements OnInit {
 
-  
   dish: Dish;
   dishIds: string[];
   prev: string;
   next: string;
+  commentForm: FormGroup;
+  customerComment: Comment;
 
   constructor(private dishService: DishService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private fb: FormBuilder) { 
+      this.createForm();
+    }
 
   ngOnInit() {
     this.dishService.getDishIds()
@@ -31,6 +37,16 @@ export class DishdetailComponent implements OnInit {
       .subscribe((dish) => {this.dish = dish; this.setPrevNext(dish.id);});
   }
 
+  createForm() {
+    this.commentForm = this.fb.group(
+      {
+        rating: 5,
+        comment: '',
+        author: '',
+        date: ''
+      }
+    );
+  }
   setPrevNext(dishId: string) {
     const index = this.dishIds.indexOf(dishId);
     this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
