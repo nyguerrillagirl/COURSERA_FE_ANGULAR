@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -7,6 +7,7 @@ import { DishService } from '../services/dish.service';
 import { switchMap } from 'rxjs/operators';
 
 import { Comment } from '../shared/comment';
+import { MatSlider } from '@angular/material';
 
 @Component({
   selector: 'app-dishdetail',
@@ -15,6 +16,7 @@ import { Comment } from '../shared/comment';
 })
 export class DishdetailComponent implements OnInit {
 
+  
   dish: Dish;
   dishIds: string[];
   prev: string;
@@ -37,6 +39,7 @@ export class DishdetailComponent implements OnInit {
       .subscribe((dish) => {this.dish = dish; this.setPrevNext(dish.id);});
   }
 
+  
   createForm() {
     this.commentForm = this.fb.group(
       {
