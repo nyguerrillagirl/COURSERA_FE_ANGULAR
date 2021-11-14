@@ -44,10 +44,20 @@
         <h5 matLine>{{comment.rating}} stars</h5>
         <h5 matLine>-- {{comment.author}} {{comment.date | date}}</h5>
       </mat-list-item>
+      <div [hidden]="isFormNotValid()">
+      <mat-list-item >
+        <h5 matLine> *** Preview *** </h5>
+        <h4 matLine><strong>{{commentForm.value['comment']}}</strong></h4>
+        <h5 matLine>{{commentForm.value['rating']}} stars</h5>
+        <h5 matLine>-- {{commentForm.value['author']}}</h5>
+      </mat-list-item>
+    </div>
    </mat-list>
    <div>
     <h2>Leave  Your Own Comment on this Dish!</h2>
+    <!--
     <p>{{commentForm.value | json}} {{commentForm.status | json}}</p>
+    -->
   </div>
 
    <form novalidate [formGroup]="commentForm" #cform="ngForm" (ngSubmit)="onSubmit()">
@@ -73,7 +83,7 @@
        </p>
        <p>
          <mat-form-field class="full-width">
-           <textarea matInput formControlName="comment" placeholder="Your Comment" rows=10>
+           <textarea matInput formControlName="comment" placeholder="Your Comment" rows=5>
            </textarea>
            <mat-error *ngIf="formErrors.comment">
             {{formErrors.comment}}

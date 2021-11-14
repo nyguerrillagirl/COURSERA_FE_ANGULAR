@@ -96,9 +96,13 @@ export class DishdetailComponent implements OnInit {
           }
         }
       }
-    }
-  }
+    }    
+   }
 
+
+  isFormNotValid() : boolean {
+     return this.commentForm.status ==="INVALID";
+  }
   setPrevNext(dishId: string) {
     const index = this.dishIds.indexOf(dishId);
     this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
@@ -108,11 +112,20 @@ export class DishdetailComponent implements OnInit {
     this.location.back();
   }
 
+  addCommentToList() {
+    this.customerComment.author = this.commentForm.value['author'];
+    this.customerComment.comment = this.commentForm.value['comment'];
+    this.customerComment.rating = this.commentForm.value['rating'];  
+    var date = new Date();
+    this.customerComment.date = date.toISOString();
+    this.dish['comments'].push(this.customerComment);
+
+  }
   onSubmit() {
     this.customerComment = this.commentForm.value;
     console.log(this.customerComment);
     // process the form elements and enter into 
-    
+    this.addCommentToList();
     this.commentFormDirective.resetForm();
     // Explicitly setting all the values!
     this.commentForm.setValue( { 
