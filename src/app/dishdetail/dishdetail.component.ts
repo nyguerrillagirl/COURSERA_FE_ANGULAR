@@ -24,6 +24,7 @@ export class DishdetailComponent implements OnInit {
   next: string;
   commentForm: FormGroup;
   customerComment: Comment;
+  dishCopy: Dish;
 
   @ViewChild('cform') commentFormDirective;
 
@@ -62,7 +63,7 @@ export class DishdetailComponent implements OnInit {
       .subscribe((dishIds) => this.dishIds = dishIds);
     this.route.params
       .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe((dish) => {this.dish = dish; this.setPrevNext(dish.id);},
+      .subscribe((dish) => {this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id);},
        errmess => this.errMess = <any>errmess);
   }
 
@@ -115,26 +116,24 @@ export class DishdetailComponent implements OnInit {
     this.location.back();
   }
 
-  addCommentToList() {
-    this.customerComment.author = this.commentForm.value['author'];
-    this.customerComment.comment = this.commentForm.value['comment'];
-    this.customerComment.rating = this.commentForm.value['rating'];  
-    var date = new Date();
-    this.customerComment.date = date.toISOString();
-    this.dish['comments'].push(this.customerComment);
-
-  }
+  
   onSubmit() {
     this.customerComment = this.commentForm.value;
+    this.customerComment.date = new Date().toISOString();
     console.log(this.customerComment);
+
+    this.dishCopy.comments.push(this.customerComment);
+    this.dishService.putDish(this.dishCopy)
+        .subscribe(dish => {
+          this.dish = dish; this.dishCopy = dish;
+        },
+        errmess => { this.dish = null; this.dishCopy = null; this.errMess = <any>errmess;});
     // process the form elements and enter into 
-    this.addCommentToList();
     this.commentFormDirective.resetForm();
-    // Explicitly setting all the values!
-    this.commentForm.setValue( { 
-      rating : 5,
-      comment: '',
+    this.commentForm.reset({
       author: '',
-      date: ''});
-    }
+      rating: 5,
+      comment: ''
+    });
+  }
 }
