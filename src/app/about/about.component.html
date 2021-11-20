@@ -59,7 +59,7 @@
       <mat-list fxFlex>
         <mat-list-item *ngFor="let leader of leaders" >   
           <!-- img element should use new style.scss rule. For assignment review purposes - replaced. -->
-          <img matListAvatar src={{leader.image}} alt={{leader.name}}>
+          <img matListAvatar src="{{BaseURL + leader.image}}" alt={{leader.name}}>
           <p mat-line>
             <span> {{leader.name}} {{leader.abbr}}</span>
         </p>
@@ -72,8 +72,12 @@
         </mat-list-item>
       </mat-list>
   </div>
-  <div fxFlex [hidden]="leaders">
+  <div fxFlex [hidden]="leaders || leaderErrorMessage">
       <mat-spinner></mat-spinner><h4>Loading...Please wait</h4>
+  </div>
+  <div fxFlex *ngIf="leaderErrorMessage">
+    <h2>Error</h2>
+    <h4>{{leaderErrorMessage}}</h4>
   </div>
   </div>
 </div>
