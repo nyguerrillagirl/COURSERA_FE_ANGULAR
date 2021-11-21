@@ -35,9 +35,11 @@
       </div>
     </div>
   </div>
-  <div fxFlex fxFlexOffset="20px"class="form-size">
+  <div fxFlex fxFlexOffset="-20px"class="form-size">
     <h3>Send us your Feedback</h3>
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" [hidden]=waitingForFormFeedbackResponse>
+
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" 
+        *ngIf="!waitingForFormFeedbackResponse && !showingFeedbackResponse" [@expand]>
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>         
@@ -90,8 +92,38 @@
         [disabled]="feedbackForm.invalid">Submit</button>
     </form>
    </div>
-   <div fxFlex fxFlexOffset="20px" [hidden]="!waitingForFormFeedbackResponse">
+   
+   <div fxFlex fxFlexOffset="20px" *ngIf="waitingForFormFeedbackResponse" [@expand]>
     <mat-spinner></mat-spinner><h4>Submitting Form...Please wait</h4>
+  </div>
+  
+  <div fxFlex fxFlexOffset="20px" *ngIf="showingFeedbackResponse" [@expand]>
+    <h4>Your Submission</h4>
+    <table>
+      <tr>
+        <td>First Name:</td><td>{{feedbackResponse.firstname}}</td>
+      </tr>
+      <tr>
+        <td>Last Name:</td><td>{{feedbackResponse.lastname}}</td>
+      </tr>
+      <tr>
+        <td>Tel. Number:</td><td>{{feedbackResponse.telnum}}</td>
+      </tr>
+      <tr>
+        <td>Email:</td><td>{{feedbackResponse.email}}</td>
+      </tr>
+      <tr>
+        <td>Contact You?:</td><td>{{feedbackResponse.agree}}</td>
+      </tr>
+      <tr>
+        <td>How?:</td><td>{{feedbackResponse.contacttype}}</td>
+      </tr>
+      <tr>
+        <td>Feedback:</td><td>{{feedbackResponse.message}}</td>
+      </tr>
+  </table>
   </div>
 
 </div>
+
+ 

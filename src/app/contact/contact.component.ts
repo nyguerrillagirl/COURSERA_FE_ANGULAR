@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
-import { flyInOut } from '../animations/app.animation';
+import { flyInOut, expand } from '../animations/app.animation';
 import { FeedbackService } from '../services/feedback.service';
 
 @Component({
@@ -13,7 +13,8 @@ import { FeedbackService } from '../services/feedback.service';
     'style': 'display: block;'
   },
   animations: [
-    flyInOut()
+    flyInOut(),
+    expand()
   ]
 })
 export class ContactComponent implements OnInit {
@@ -25,7 +26,6 @@ export class ContactComponent implements OnInit {
   waitingForFormFeedbackResponse: boolean = false;
   showingFeedbackResponse: boolean = false;
   
-
   @ViewChild('fform') feedbackFormDirective;
 
   formErrors = {
@@ -101,6 +101,15 @@ export class ContactComponent implements OnInit {
       }
     }
   }
+  // This method is used to display the feedback response
+  // form. In addition, we set up a timer that will 
+  // restore the original feedback form back
+  displayFeedbackResponseForm(){
+    this.showingFeedbackResponse = true;
+ 
+    setTimeout( () => { this.showingFeedbackResponse = false; }, 5000);
+
+  }
 
   onSubmit() {
     console.log('onSubmit - invoked');
@@ -109,12 +118,13 @@ export class ContactComponent implements OnInit {
     console.log(this.feedback);
     // here is where we will post the form feedback
     // Make the Feedback form disappear and the spinner appear
-    this.waitingForFormFeedbackResponse = true;
+     this.waitingForFormFeedbackResponse = true;
     this.feedbackService.submitFeedback(this.feedback)
        .subscribe(feedback => {
                                 this.feedbackResponse = feedback; 
                                 console.log(this.feedbackResponse);
-                                this.waitingForFormFeedbackResponse = false;},
+                                this.waitingForFormFeedbackResponse = false;
+                                this.displayFeedbackResponseForm()},
         errmess => this.errMess = <any>errmess);
     this.feedbackForm.reset({
       firstname: '',
