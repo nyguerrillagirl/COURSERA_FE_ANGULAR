@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 import { flyInOut } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'app-contact',
@@ -19,6 +20,11 @@ export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
   feedback: Feedback;
   contactType = ContactType;
+  feedbackResponse: Feedback;
+  errMess: string;
+  waitingForFormFeedbackResponse: boolean = false;
+  showingFeedbackResponse: boolean = false;
+  
 
   @ViewChild('fform') feedbackFormDirective;
 
@@ -50,7 +56,8 @@ export class ContactComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private feedbackService: FeedbackService) {
     this.createForm();
    }
 
@@ -96,8 +103,19 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('onSubmit - invoked');
     this.feedback = this.feedbackForm.value;
+    console.log("THIS WAS SUBMITTED BY A CLIENT:");
     console.log(this.feedback);
+    // here is where we will post the form feedback
+    // Make the Feedback form disappear and the spinner appear
+    this.waitingForFormFeedbackResponse = true;
+    this.feedbackService.submitFeedback(this.feedback)
+       .subscribe(feedback => {
+                                this.feedbackResponse = feedback; 
+                                console.log(this.feedbackResponse);
+                                this.waitingForFormFeedbackResponse = false;},
+        errmess => this.errMess = <any>errmess);
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',

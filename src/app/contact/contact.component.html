@@ -35,10 +35,9 @@
       </div>
     </div>
   </div>
-  <div fxFlex fxFlexOffset="20px" class="form-size">
+  <div fxFlex fxFlexOffset="20px"class="form-size">
     <h3>Send us your Feedback</h3>
-    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json}}</p>
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" [hidden]=waitingForFormFeedbackResponse>
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>         
@@ -82,12 +81,17 @@
    </table>
    <p>
     <mat-form-field class="full-width">
-       <textarea matInput formControlName="message" placeholder="Your feedback" rows=12>
+       <textarea matInput formControlName="message" placeholder="Your feedback" rows=5>
        </textarea>
     </mat-form-field>
   </p>
   <button type="button" class="background-primary text-floral-white"
+        (click)="onSubmit()"
         [disabled]="feedbackForm.invalid">Submit</button>
     </form>
+   </div>
+   <div fxFlex fxFlexOffset="20px" [hidden]="!waitingForFormFeedbackResponse">
+    <mat-spinner></mat-spinner><h4>Submitting Form...Please wait</h4>
   </div>
+
 </div>
