@@ -116,7 +116,7 @@ export class ContactComponent implements OnInit {
     this.errMess = "Error occurred while trying to submit feedback form";
     this.waitingForFormFeedbackResponse = false;
     this.showingFeedbackResponse = true;
-    setTimeout(() => { this.showingFeedbackResponse = false;}, 5000);
+    setTimeout(() => { this.showingFeedbackResponse = false; this.errMess=undefined}, 5000);
   }
 
   onSubmit() {

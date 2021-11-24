@@ -126,7 +126,7 @@
   </table>
 
   </div>
-  <div fxFlex *ngIf="errMess">
+  <div fxFlex *ngIf="errMess && !waitingForFormFeedbackResponse">
     <h2>Error</h2>
     <h4>{{errMess}}</h4>
   </div>
