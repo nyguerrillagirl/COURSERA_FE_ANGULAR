@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
 
     this.leaderService.getFeaturedLeader()
       .subscribe((leader) => this.leader = leader,
-      errmess => this.promotionErrorMess = <any>errmess);
+      errmess => this.leaderErrorMess = <any>errmess);
   }
 
 }
