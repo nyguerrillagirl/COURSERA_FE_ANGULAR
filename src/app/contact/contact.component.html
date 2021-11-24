@@ -93,12 +93,14 @@
     </form>
    </div>
    
-   <div fxFlex fxFlexOffset="20px" *ngIf="waitingForFormFeedbackResponse" [@expand]>
+   <div fxFlex fxFlexOffset="20px" *ngIf="waitingForFormFeedbackResponse " [@expand]>
     <mat-spinner></mat-spinner><h4>Submitting Form...Please wait</h4>
   </div>
   
-  <div fxFlex fxFlexOffset="20px" *ngIf="showingFeedbackResponse" [@expand]>
+  <div fxFlex fxFlexOffset="20px" *ngIf="showingFeedbackResponse && !errMess" [@expand]>
+    
     <h4>Your Submission</h4>
+    
     <table>
       <tr>
         <td>First Name:</td><td>{{feedbackResponse.firstname}}</td>
@@ -122,6 +124,11 @@
         <td>Feedback:</td><td>{{feedbackResponse.message}}</td>
       </tr>
   </table>
+
+  </div>
+  <div fxFlex *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
   </div>
 
 </div>

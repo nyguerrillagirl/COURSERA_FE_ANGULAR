@@ -23,6 +23,7 @@ export class ContactComponent implements OnInit {
   contactType = ContactType;
   feedbackResponse: Feedback;
   errMess: string;
+  errorDisplay: boolean = false;
   waitingForFormFeedbackResponse: boolean = false;
   showingFeedbackResponse: boolean = false;
   
@@ -110,6 +111,13 @@ export class ContactComponent implements OnInit {
     setTimeout( () => { this.showingFeedbackResponse = false; }, 5000);
 
   }
+  displayErrorFeedbackResponse() {
+    console.log("ERROR DETECTED!");
+    this.errMess = "Error occurred while trying to submit feedback form";
+    this.waitingForFormFeedbackResponse = false;
+    this.showingFeedbackResponse = true;
+    setTimeout(() => { this.showingFeedbackResponse = false;}, 5000);
+  }
 
   onSubmit() {
     console.log('onSubmit - invoked');
@@ -125,7 +133,7 @@ export class ContactComponent implements OnInit {
                                 console.log(this.feedbackResponse);
                                 this.waitingForFormFeedbackResponse = false;
                                 this.displayFeedbackResponseForm()},
-        errmess => this.errMess = <any>errmess);
+        errmess => {this.errMess = <any>errmess; this.displayErrorFeedbackResponse());
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
