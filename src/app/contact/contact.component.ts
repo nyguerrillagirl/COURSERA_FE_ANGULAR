@@ -133,7 +133,7 @@ export class ContactComponent implements OnInit {
                                 console.log(this.feedbackResponse);
                                 this.waitingForFormFeedbackResponse = false;
                                 this.displayFeedbackResponseForm()},
-        errmess => {this.errMess = <any>errmess; this.displayErrorFeedbackResponse());
+        errmess => {this.errMess = <any>errmess; this.displayErrorFeedbackResponse()});
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
